@@ -9,7 +9,12 @@ var filename = "temp.bolt"
 var value = []string{"a", "b"}
 
 func setup() *Graph {
-	return NewGraph(filename)
+	graph := NewGraph(filename)
+	graph.Put("t1", []string{"t2"})
+	graph.Put("t2", []string{"t3"})
+	graph.Flush()
+	return graph
+
 }
 func teardown(graph *Graph) {
 	graph.Close()
