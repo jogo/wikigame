@@ -3,23 +3,25 @@ package main
 import (
 	"flag"
 	"fmt"
+	"github.com/jogo/wikigame/graph"
+	"github.com/jogo/wikigame/xml"
+	"log"
 	"os"
 	"time"
-	"wikigame/graph"
-	"wikigame/xml"
 )
+
+var filename = "pages.bolt"
 
 func importXML(limit *int) {
 	//create graph
-	g := graph.NewGraph()
+	g := graph.NewGraph(filename)
 	defer g.Close()
 
 	//populate graph from enwiki*.xml.bz2
 	// bzcat enwiki*.xml.bz2 | ./me
 	p, err := xml.NewParser(os.Stdin)
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error setting up xml parser", err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
 
 	for i := 0; err == nil && i < *limit; i++ {
@@ -68,7 +70,7 @@ func main() {
 		importXML(limit)
 	}
 
-	g := graph.NewGraph()
+	g := graph.NewGraph(filename)
 	defer g.Close()
 	test(g)
 }
