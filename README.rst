@@ -15,6 +15,11 @@ the mapping of page titles and links in boltdb.
 Usage
 ======
 
+1. Get latest English wikipedia pages dump from http://meta.wikimedia.org/wiki/Data_dump_torrents#enwiki
+2. Import data with ``bzcat enwiki-*-pages-articles.xml.bz2 | wikigame -import=true``
+
+
+
 Dependencies
 ============
 
